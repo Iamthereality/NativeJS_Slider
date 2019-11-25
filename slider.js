@@ -7,9 +7,10 @@ class Slider {
         this.prev_button = this.slider_container.querySelector(prev_button);    //previous slide button
         this.next_button = this.slider_container.querySelector(next_button);    //next slide button
 
-        if (dots_container !== undefined && dot !== undefined) {
+        //check the availability of the dots and its container into the object instance
+        if ((dots_container && dot) !== undefined) {
             this.dots_container = document.querySelector(dots_container);       //container for dots as control items
-            this.dot = dot;
+            this.dot = dot.slice(1);
 
             //check the length of the dots items list
             //and if its are shorter than the length of the slides items list
@@ -17,7 +18,7 @@ class Slider {
             if (this.dots_container.querySelectorAll(dot).length < this.slides.length) {
                 for (let i = 1; i < this.slides.length; i++) {
                     let additional_dot = document.createElement('div');
-                    additional_dot.classList.add(this.dot.slice(1));
+                    additional_dot.classList.add(this.dot);
                     this.dots_container.appendChild(additional_dot);
                 }
             }
@@ -84,7 +85,7 @@ class Slider {
     dots_control = (event) => {
         let target = event.target;
         for (let i = 1; i < this.dots.length + 1; ++i) {
-            if (target.classList.contains(this.dot.slice(1)) && target === this.dots[i-1]) {
+            if (target.classList.contains(this.dot) && target === this.dots[i-1]) {
                 this.show_slide(this.slide_index = i);
             }
         }
